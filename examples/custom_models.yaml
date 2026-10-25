@@ -1,0 +1,40 @@
+# Custom models and deployments for Green AI.
+# Load with:  green-ai batch usage.csv --custom examples/custom_models.yaml
+# or in Python: default_registry().load_custom("examples/custom_models.yaml")
+#
+# Parameter counts are in billions. Omit active_params for a dense model.
+# Any numeric value can be a range: {min: 10, max: 30}.
+
+providers:
+  onprem:                    # a self hosted GPU cluster
+    location: FRA            # ISO 3166-1 alpha-3 code of the electricity mix
+    pue: {min: 1.2, max: 1.5}
+    wue: 0.0                 # closed loop cooling, no on-site water evaporation
+
+models:
+  # Example of an internal alias pointing at an open-weights architecture
+  - name: acme-internal-qwen
+    provider: onprem
+    total_params: 32
+    source: https://huggingface.co/Qwen
+
+  # Open-weights MoE models: take total and active parameters from the model card
+  - name: deepseek-v4-flash
+    provider: onprem
+    total_params: 284
+    active_params: 13
+
+  - name: glm-5.2
+    provider: onprem
+    total_params: 744
+    active_params: 40
+
+  - name: minimax-m2.5
+    provider: onprem
+    total_params: 230
+    active_params: 10
+
+  - name: kimi-k3
+    provider: onprem
+    total_params: 2800
+    active_params: 104
