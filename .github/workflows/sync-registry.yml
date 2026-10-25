@@ -1,0 +1,60 @@
+name: Sync model registry
+
+# Every Monday, check whether a new EcoLogits release added models or updated
+# electricity data. If it did, refresh the bundled registry, run the full test
+# suite on it and open a pull request. Users can update locally at any time with
+# `green-ai update`.
+#
+# Opening pull requests needs: Settings > Actions > General > Workflow permissions
+# > "Allow GitHub Actions to create and approve pull requests".
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install with the latest EcoLogits release
+        run: |
+          pip install -e ".[dev]"
+          pip install -U ecologits
+          echo "ECOLOGITS_VERSION=$(python -c 'import importlib.metadata as m; print(m.version("ecologits"))')" >> "$GITHUB_ENV"
+      - name: Refresh bundled data
+        run: python scripts/sync_ecologits_data.py
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet -- src/green_ai/data; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Registry already matches EcoLogits $ECOLOGITS_VERSION."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat -- src/green_ai/data
+          fi
+      - name: Run tests against the new data
+        if: steps.diff.outputs.changed == 'true'
+        run: pytest
+      - name: Regenerate figures
+        if: steps.diff.outputs.changed == 'true'
+        run: python scripts/make_figures.py
+      - name: Open pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: sync/ecologits-${{ env.ECOLOGITS_VERSION }}
+          title: "Registry: sync with EcoLogits ${{ env.ECOLOGITS_VERSION }}"
+          commit-message: "Sync model registry with EcoLogits ${{ env.ECOLOGITS_VERSION }}"
+          body: |
+            Weekly sync of the model registry and electricity mixes with EcoLogits ${{ env.ECOLOGITS_VERSION }}.
+            The full test suite passed on the new data.
+          delete-branch: true

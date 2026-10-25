@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install ruff
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    name: test (${{ matrix.os }}, py${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+          - os: windows-latest
+            python-version: "3.13"
+          - os: macos-latest
+            python-version: "3.13"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - name: Tests, including the EcoLogits consistency suite
+        run: pytest --cov=green_ai --cov-report=term-missing
+      - name: Alpha presets from the bundled research aggregates
+        run: python scripts/reproduce_evidence.py
+
+  package:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install build twine
+      - run: python -m build
+      - run: twine check dist/*
+      - name: Install the wheel in a clean environment and run it
+        run: |
+          python -m venv /tmp/wheel-env
+          /tmp/wheel-env/bin/pip install "$(ls dist/*.whl)[app]"
+          cd /tmp
+          /tmp/wheel-env/bin/green-ai version
+          /tmp/wheel-env/bin/green-ai estimate gpt-4o --in 20000 --out 400
+          /tmp/wheel-env/bin/green-ai batch "$GITHUB_WORKSPACE/examples/sample_usage.csv" -o /tmp/report
+          /tmp/wheel-env/bin/green-ai tasks --csv "$GITHUB_WORKSPACE/examples/task_profiles.csv"
+          /tmp/wheel-env/bin/python -c "import green_ai.dashboard"
