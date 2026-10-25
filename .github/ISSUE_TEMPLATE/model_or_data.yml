@@ -1,0 +1,27 @@
+name: Model, data or coefficient
+description: A missing model, a better parameter estimate, or new measurements
+labels: [data]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - Missing model or alias
+        - Better parameter or deployment estimate
+        - Prefill or decode energy measurements
+        - Log format or column names
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Model names, values and how they were measured.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: Link to a model card, paper, dataset or documentation.
