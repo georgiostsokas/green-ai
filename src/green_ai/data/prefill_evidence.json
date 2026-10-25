@@ -1,0 +1,301 @@
+{
+  "h100": {
+    "paper": "https://arxiv.org/abs/2601.22357",
+    "dataset": "https://huggingface.co/datasets/Anon152425/energy_dtype_all_models",
+    "revision": "d0e7e7b3990c4c63a68738daf65d94d83ebd2d15",
+    "method": "Within each model/precision group: (sum prefill GPU kWh / sum input tokens) / (sum decode GPU kWh / sum response tokens). Median across groups.",
+    "records": 99990,
+    "groups": [
+      {
+        "model": "mistralai/Mistral-7B-Instruct-v0.3",
+        "dtype": "bfloat16",
+        "records": 10000,
+        "input_tokens": 13199854,
+        "output_tokens": 306834,
+        "prefill_kwh": 0.2101716235532078,
+        "decode_kwh": 0.6033905663230865,
+        "alpha": 0.008096734849176555
+      },
+      {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "dtype": "bfloat16",
+        "records": 9999,
+        "input_tokens": 11929687,
+        "output_tokens": 433715,
+        "prefill_kwh": 0.17058569702392193,
+        "decode_kwh": 0.7332671595299683,
+        "alpha": 0.008457768090031327
+      },
+      {
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "dtype": "bfloat16",
+        "records": 9999,
+        "input_tokens": 11929362,
+        "output_tokens": 389936,
+        "prefill_kwh": 0.13504307733975185,
+        "decode_kwh": 0.589488719229798,
+        "alpha": 0.007488122528501381
+      },
+      {
+        "model": "Qwen/Qwen2.5-3B-Instruct",
+        "dtype": "float16",
+        "records": 9999,
+        "input_tokens": 11929004,
+        "output_tokens": 383916,
+        "prefill_kwh": 0.14477219623370263,
+        "decode_kwh": 0.6281789865693881,
+        "alpha": 0.007417094052009536
+      },
+      {
+        "model": "mistralai/Mistral-7B-Instruct-v0.3",
+        "dtype": "float16",
+        "records": 9999,
+        "input_tokens": 13197673,
+        "output_tokens": 304817,
+        "prefill_kwh": 0.2110400945270782,
+        "decode_kwh": 0.6192360671943062,
+        "alpha": 0.007871374034475484
+      },
+      {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "dtype": "bfloat16",
+        "records": 9998,
+        "input_tokens": 11894165,
+        "output_tokens": 525257,
+        "prefill_kwh": 0.18032298398048846,
+        "decode_kwh": 0.9788139737450855,
+        "alpha": 0.008135585519447316
+      },
+      {
+        "model": "Qwen/Qwen2.5-7B-Instruct",
+        "dtype": "float16",
+        "records": 9999,
+        "input_tokens": 11929719,
+        "output_tokens": 431636,
+        "prefill_kwh": 0.16640899215484944,
+        "decode_kwh": 0.7146244630881501,
+        "alpha": 0.00842531906517591
+      },
+      {
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "dtype": "float16",
+        "records": 10000,
+        "input_tokens": 11930338,
+        "output_tokens": 582906,
+        "prefill_kwh": 0.2506380017600874,
+        "decode_kwh": 1.779627200228396,
+        "alpha": 0.006881191784946475
+      },
+      {
+        "model": "meta-llama/Llama-3.1-8B-Instruct",
+        "dtype": "float16",
+        "records": 9999,
+        "input_tokens": 11896683,
+        "output_tokens": 524427,
+        "prefill_kwh": 0.18182152448503056,
+        "decode_kwh": 0.9848816462376956,
+        "alpha": 0.008138050944248371
+      },
+      {
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "dtype": "bfloat16",
+        "records": 9998,
+        "input_tokens": 11927545,
+        "output_tokens": 583424,
+        "prefill_kwh": 0.26513111835483893,
+        "decode_kwh": 1.9205857802172077,
+        "alpha": 0.006752432032207651
+      }
+    ],
+    "median_alpha": 0.00798405444182602
+  },
+  "solovyeva": {
+    "paper": "https://arxiv.org/abs/2602.05712v1",
+    "tables": "Tables 1\u20134, CU and CU-long. Published central table values; not individual observations.",
+    "method": "Mean of 20 individual reconstructed ratios; not ratio of pooled raw observations.",
+    "rows": [
+      {
+        "model": "CodeLlama-7B",
+        "workload": "CU",
+        "total_energy_J": 258.0,
+        "prefill_percent": 84.4,
+        "input_tokens": 5555.0,
+        "decode_J_per_output_token": 7.82,
+        "alpha": 0.005012695642965832
+      },
+      {
+        "model": "CodeLlama-7B",
+        "workload": "CU-long",
+        "total_energy_J": 2582.0,
+        "prefill_percent": 7.7,
+        "input_tokens": 5503.0,
+        "decode_J_per_output_token": 7.97,
+        "alpha": 0.004533035590715775
+      },
+      {
+        "model": "Qwen2.5-Coder-7B",
+        "workload": "CU",
+        "total_energy_J": 188.0,
+        "prefill_percent": 74.9,
+        "input_tokens": 4287.0,
+        "decode_J_per_output_token": 5.37,
+        "alpha": 0.006116625595809774
+      },
+      {
+        "model": "Qwen2.5-Coder-7B",
+        "workload": "CU-long",
+        "total_energy_J": 1661.0,
+        "prefill_percent": 8.8,
+        "input_tokens": 4221.0,
+        "decode_J_per_output_token": 5.46,
+        "alpha": 0.006342263911560287
+      },
+      {
+        "model": "Deepseek-Coder-6.7B",
+        "workload": "CU",
+        "total_energy_J": 265.0,
+        "prefill_percent": 73.4,
+        "input_tokens": 5542.0,
+        "decode_J_per_output_token": 7.82,
+        "alpha": 0.004488163394898386
+      },
+      {
+        "model": "Deepseek-Coder-6.7B",
+        "workload": "CU-long",
+        "total_energy_J": 2579.0,
+        "prefill_percent": 7.6,
+        "input_tokens": 5491.0,
+        "decode_J_per_output_token": 7.97,
+        "alpha": 0.00447873296488128
+      },
+      {
+        "model": "CodeGemma-7B",
+        "workload": "CU",
+        "total_energy_J": 270.0,
+        "prefill_percent": 72.6,
+        "input_tokens": 4888.0,
+        "decode_J_per_output_token": 8.44,
+        "alpha": 0.004751456318210377
+      },
+      {
+        "model": "CodeGemma-7B",
+        "workload": "CU-long",
+        "total_energy_J": 870.0,
+        "prefill_percent": 22.8,
+        "input_tokens": 4812.0,
+        "decode_J_per_output_token": 8.51,
+        "alpha": 0.0048439418492546545
+      },
+      {
+        "model": "CodeQwen1.5-7B",
+        "workload": "CU",
+        "total_energy_J": 230.0,
+        "prefill_percent": 79.9,
+        "input_tokens": 5298.0,
+        "decode_J_per_output_token": 5.45,
+        "alpha": 0.006364527379208357
+      },
+      {
+        "model": "CodeQwen1.5-7B",
+        "workload": "CU-long",
+        "total_energy_J": 1834.0,
+        "prefill_percent": 10.1,
+        "input_tokens": 5226.0,
+        "decode_J_per_output_token": 5.52,
+        "alpha": 0.006421141228084771
+      },
+      {
+        "model": "NextCoder-7B",
+        "workload": "CU",
+        "total_energy_J": 187.0,
+        "prefill_percent": 77.1,
+        "input_tokens": 4278.0,
+        "decode_J_per_output_token": 5.42,
+        "alpha": 0.00621807445283429
+      },
+      {
+        "model": "NextCoder-7B",
+        "workload": "CU-long",
+        "total_energy_J": 708.0,
+        "prefill_percent": 20.5,
+        "input_tokens": 4204.0,
+        "decode_J_per_output_token": 5.46,
+        "alpha": 0.0063231250196045625
+      },
+      {
+        "model": "Phi3.5-4B",
+        "workload": "CU",
+        "total_energy_J": 170.0,
+        "prefill_percent": 72.1,
+        "input_tokens": 5554.0,
+        "decode_J_per_output_token": 5.31,
+        "alpha": 0.0041560789563450645
+      },
+      {
+        "model": "Phi3.5-4B",
+        "workload": "CU-long",
+        "total_energy_J": 1450.0,
+        "prefill_percent": 8.7,
+        "input_tokens": 5501.0,
+        "decode_J_per_output_token": 5.44,
+        "alpha": 0.0042154768651688984
+      },
+      {
+        "model": "Phi4-4B",
+        "workload": "CU",
+        "total_energy_J": 111.0,
+        "prefill_percent": 67.3,
+        "input_tokens": 4144.0,
+        "decode_J_per_output_token": 4.45,
+        "alpha": 0.004050963081861958
+      },
+      {
+        "model": "Phi4-4B",
+        "workload": "CU-long",
+        "total_energy_J": 768.0,
+        "prefill_percent": 10.3,
+        "input_tokens": 4078.0,
+        "decode_J_per_output_token": 4.63,
+        "alpha": 0.004189577536102163
+      },
+      {
+        "model": "Qwen3-4B",
+        "workload": "CU",
+        "total_energy_J": 144.0,
+        "prefill_percent": 68.3,
+        "input_tokens": 4244.0,
+        "decode_J_per_output_token": 5.65,
+        "alpha": 0.004101657311102399
+      },
+      {
+        "model": "Qwen3-4B",
+        "workload": "CU-long",
+        "total_energy_J": 1812.0,
+        "prefill_percent": 5.6,
+        "input_tokens": 4184.0,
+        "decode_J_per_output_token": 5.74,
+        "alpha": 0.004225155062258079
+      },
+      {
+        "model": "Qwen2.5-Coder-3B",
+        "workload": "CU",
+        "total_energy_J": 100.0,
+        "prefill_percent": 64.9,
+        "input_tokens": 4268.0,
+        "decode_J_per_output_token": 4.49,
+        "alpha": 0.003386678300002296
+      },
+      {
+        "model": "Qwen2.5-Coder-3B",
+        "workload": "CU-long",
+        "total_energy_J": 1218.0,
+        "prefill_percent": 5.1,
+        "input_tokens": 4213.0,
+        "decode_J_per_output_token": 4.22,
+        "alpha": 0.0034939248073273537
+      }
+    ],
+    "mean_alpha": 0.004885664763409828
+  },
+  "scope": "Public-research re-analysis. No organisational usage data. Numerical aggregates only; original measurements are not redistributed."
+}
