@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+.DS_Store
+green_ai_report/
+report/
+examples/report/
+
+# Local data, credentials and AA downloads
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+private/
+local_data/
+*.log

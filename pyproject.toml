@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "green-ai"
+dynamic = ["version"]
+description = "Carbon footprint estimator for LLMs: electricity, CO2 and water per request, per task and per usage log, counting prompt processing."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "src/green_ai/data/ecologits/LICENSE-MPL-2.0"]
+authors = [{ name = "Georgios Tsokas" }]
+keywords = ["green ai", "llm", "carbon footprint", "co2", "energy", "sustainability", "genai", "prefill", "inference"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Scientific/Engineering",
+  "Typing :: Typed",
+]
+dependencies = [
+  "pyyaml>=6",
+  "rich>=13",
+  "typer>=0.12",
+]
+
+[project.optional-dependencies]
+report = ["pandas>=2.0", "numpy>=1.24", "matplotlib>=3.7", "openpyxl>=3.1"]
+app = ["green-ai[report]", "streamlit>=1.53,<2"]
+formats = ["pyarrow>=16", "xlrd>=2"]
+dev = ["green-ai[app]", "pytest>=8", "pytest-cov>=5", "ruff>=0.5", "ecologits==0.11.3"]
+all = ["green-ai[app]"]
+
+[project.urls]
+Homepage = "https://github.com/georgiostsokas/green-ai"
+Documentation = "https://github.com/georgiostsokas/green-ai/blob/main/docs/METHODOLOGY.md"
+Issues = "https://github.com/georgiostsokas/green-ai/issues"
+Changelog = "https://github.com/georgiostsokas/green-ai/blob/main/CHANGELOG.md"
+
+[project.scripts]
+green-ai = "green_ai.cli:main"
+
+[tool.hatch.version]
+path = "src/green_ai/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/green_ai"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "docs", "examples", "app", "scripts", ".github", ".streamlit", "*.command", "*.bat", "*.txt", "*.toml", "*.md", "LICENSE", "CITATION.cff"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["parity: numerical parity with the EcoLogits reference implementation (needs ecologits)"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["B008", "UP007", "UP045"]

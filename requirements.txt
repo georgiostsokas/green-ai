@@ -1,0 +1,3 @@
+# Installs Green AI with the app dependencies.
+# Used by Streamlit Community Cloud and Hugging Face Spaces to run app/streamlit_app.py.
+.[app]

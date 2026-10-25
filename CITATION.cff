@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use Green AI, please cite it as below."
+title: "Green AI: carbon footprint estimator for LLMs"
+type: software
+authors:
+  - family-names: Tsokas
+    given-names: Georgios
+version: 0.2.0
+date-released: 2026-10-23
+license: MIT
+repository-code: "https://github.com/georgiostsokas/green-ai"
+keywords:
+  - large language models
+  - carbon footprint
+  - energy
+  - green AI
+  - prefill
+references:
+  - type: article
+    title: "EcoLogits: Evaluating the Environmental Impacts of Generative AI"
+    authors:
+      - family-names: Rincé
+        given-names: Samuel
+      - family-names: Banse
+        given-names: Adrien
+    journal: "Journal of Open Source Software"
+    volume: 10
+    issue: 111
+    start: 7471
+    year: 2025
+    doi: 10.21105/joss.07471
