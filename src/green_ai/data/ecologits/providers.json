@@ -1,0 +1,47 @@
+{
+  "_comment": "Provider datacenter assumptions reproduced from EcoLogits 0.11.3 (ecologits/tracers/utils.py, PROVIDER_CONFIG_MAP). Distributed under MPL-2.0, see LICENSE-MPL-2.0.",
+  "providers": {
+    "anthropic": {
+      "datacenter_location": "USA",
+      "pue": {
+        "min": 1.09,
+        "max": 1.14
+      },
+      "wue": {
+        "min": 0.13,
+        "max": 0.999
+      }
+    },
+    "cohere": {
+      "datacenter_location": "USA",
+      "pue": 1.09,
+      "wue": 0.999
+    },
+    "google_genai": {
+      "datacenter_location": "USA",
+      "pue": 1.09,
+      "wue": 0.999
+    },
+    "huggingface_hub": {
+      "datacenter_location": "USA",
+      "pue": {
+        "min": 1.09,
+        "max": 1.14
+      },
+      "wue": {
+        "min": 0.13,
+        "max": 0.99
+      }
+    },
+    "mistralai": {
+      "datacenter_location": "SWE",
+      "pue": 1.16,
+      "wue": 0.09
+    },
+    "openai": {
+      "datacenter_location": "USA",
+      "pue": 1.2,
+      "wue": 0.569
+    }
+  }
+}
